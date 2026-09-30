@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Systems Roadmap — Full</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+    background: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.8rem;
+    color: #58a6ff;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: 1.15rem;
+    color: #f0883e;
+    margin: 2.5rem 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 0.4rem;
+  }
+  .subtitle {
+    color: #8b949e;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .progress-bar {
+    position: sticky;
+    top: 0;
+    background: #0d1117;
+    padding: 1rem 0;
+    z-index: 10;
+    border-bottom: 1px solid #30363d;
+    margin-bottom: 1rem;
+  }
+  .progress-track {
+    height: 10px;
+    background: #21262d;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #238636, #3fb950);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-text {
+    font-size: 0.85rem;
+    color: #8b949e;
+    margin-top: 0.4rem;
+    text-align: right;
+  }
+  .flow {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: monospace;
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    white-space: pre;
+    color: #8b949e;
+  }
+  .flow .current { color: #3fb950; font-weight: bold; }
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-left: 3px solid #58a6ff;
+    border-radius: 6px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.6rem;
+    transition: all 0.2s ease;
+  }
+  .task:hover { border-color: #58a6ff; }
+  .task input[type="checkbox"] {
+    margin-top: 0.35rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #3fb950;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .task label { cursor: pointer; flex-grow: 1; }
+  .task .title {
+    color: #c9d1d9;
+    font-weight: 600;
+    font-size: 0.98rem;
+  }
+  .task .desc {
+    color: #8b949e;
+    font-size: 0.88rem;
+    margin-top: 0.35rem;
+  }
+  .task .desc strong { color: #58a6ff; font-weight: 500; }
+  .task .time {
+    color: #f0883e;
+    font-size: 0.82rem;
+    margin-top: 0.35rem;
+    font-family: monospace;
+  }
+  .task.done .title { text-decoration: line-through; color: #484f58; }
+  .task.done { opacity: 0.55; border-left: 3px solid #3fb950; }
+  .task.done .desc, .task.done .time { color: #484f58; }
+  .time-box {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .time-box ul { list-style: none; padding-left: 0; }
+  .time-box li {
+    padding: 0.3rem 0;
+    color: #c9d1d9;
+    border-bottom: 1px dashed #21262d;
+  }
+  .time-box li:last-child { border-bottom: none; }
+  .time-box li strong { color: #f0883e; }
+  .rule {
+    background: #1c2128;
+    border-left: 4px solid #3fb950;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    color: #c9d1d9;
+    font-size: 0.92rem;
+  }
+  .rule strong { color: #3fb950; }
+  .reset {
+    margin-top: 2rem;
+    background: transparent;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  .reset:hover { border-color: #f85149; color: #f85149; }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid #30363d;
+    color: #484f58;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar">
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-text" id="progressText">0 / 0 complete (0%)</div>
+</div>
+
+<h1>ML Systems Roadmap</h1>
+<p class="subtitle">From C game to GPU/ML Systems Engineer. One project at a time.</p>
+
+<h2>The Path</h2>
+<div class="flow">Game in C
+  → Autograd
+    → Tensor
+      → MLP
+        → MLP on game
+          → Optimizers
+            → CNN
+              → RNN/LSTM
+                → Attention
+                  → BPE tokenizer
+                    → GPT-2 inference
+                      → Llama inference
+                        → KV cache + SIMD
+                          → CUDA vector add
+                            → CUDA transpose
+                              → CUDA matmul
+                                → CUDA reduction
+                                  → CUDA softmax
+                                    → CUDA tensor backend
+                                      → Inference engine
+                                        → Serving stack
+                                          → Quantization
+                                            → Q-learning
+                                              → Policy gradients
+                                                → PPO
+                                                  → Blog/video each
+                                                    → OSS contributions
+                                                      → Rebuild from memory</div>
+
+<h2>Phase 1: Foundations (Weeks 1–6)</h2>
+
+<div class="task" data-id="p1">
+  <input type="checkbox" id="p1">
+  <label for="p1">
+    <div class="title">1. Finish the game in C</div>
+    <div class="desc">Pong or Snake. No engine. Raw C, raw rendering (SDL or terminal).<br><strong>Purpose:</strong> Complete something. Learn game loop, state, input, collision.<br><strong>Output:</strong> Working game, GitHub repo, README.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p2">
+  <input type="checkbox" id="p2">
+  <label for="p2">
+    <div class="title">2. Scalar Autograd Engine in C</div>
+    <div class="desc">Value struct with data, grad, _backward, prev. Implement add, mul, pow, tanh, relu, topological sort, backward pass. Test on fan-out.<br><strong>Purpose:</strong> Understand backprop from first principles.<br><strong>Output:</strong> Repo with tests proving gradients are correct.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p3">
+  <input type="checkbox" id="p3">
+  <label for="p3">
+    <div class="title">3. Tensor Library in C</div>
+    <div class="desc">1D and 2D tensor. Storage (flat buffer) + View (shape, stride, offset). Implement create, free, reshape, slice, element-wise add/mul, matmul.<br><strong>Purpose:</strong> Own the data structure everything else builds on.<br><strong>Output:</strong> Repo with benchmarks.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p4">
+  <input type="checkbox" id="p4">
+  <label for="p4">
+    <div class="title">4. MLP on Your Own Tensor</div>
+    <div class="desc">Neuron → Layer → MLP. Forward pass, activation, manual backprop. Train on XOR, then AND/OR.<br><strong>Purpose:</strong> First working neural network you built entirely yourself.<br><strong>Output:</strong> Repo that trains and prints loss.</div>
+  </label>
+</div>
+
+<h2>Phase 2: Core ML (Weeks 7–14)</h2>
+
+<div class="task" data-id="p5">
+  <input type="checkbox" id="p5">
+  <label for="p5">
+    <div class="title">5. Connect MLP to Your Game</div>
+    <div class="desc">Simple policy: state → network → action. Train with supervised learning or basic RL. Get the paddle to track the ball.<br><strong>Purpose:</strong> Close the loop between NN and environment.<br><strong>Output:</strong> Video/GIF of the AI playing.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p6">
+  <input type="checkbox" id="p6">
+  <label for="p6">
+    <div class="title">6. Optimizers from Scratch</div>
+    <div class="desc">SGD, Momentum, RMSProp, Adam. All in C on your tensor library. Compare convergence on a toy problem.<br><strong>Purpose:</strong> Understand why Adam is default.<br><strong>Output:</strong> Repo with loss curves.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p7">
+  <input type="checkbox" id="p7">
+  <label for="p7">
+    <div class="title">7. CNN from Scratch in C</div>
+    <div class="desc">Naive convolution → im2col → tiled. Pooling, stride, padding. Train on MNIST. Target &gt;95%.<br><strong>Purpose:</strong> Understand spatial architectures and the cost of convolution.<br><strong>Output:</strong> Repo with accuracy benchmarks.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p8">
+  <input type="checkbox" id="p8">
+  <label for="p8">
+    <div class="title">8. RNN / LSTM from Scratch in C</div>
+    <div class="desc">Vanilla RNN, then LSTM, then GRU. Train on a sequence task (char prediction, sine wave).<br><strong>Purpose:</strong> Understand sequence modeling and vanishing gradients.<br><strong>Output:</strong> Repo with generation samples.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p9">
+  <input type="checkbox" id="p9">
+  <label for="p9">
+    <div class="title">9. Attention from Scratch</div>
+    <div class="desc">Single-head → multi-head. Query, key, value. Softmax. Build a tiny transformer encoder.<br><strong>Purpose:</strong> This is the foundation of everything modern.<br><strong>Output:</strong> Repo with attention visualization.</div>
+  </label>
+</div>
+
+<h2>Phase 3: Transformers &amp; LLMs (Weeks 15–26)</h2>
+
+<div class="task" data-id="p10">
+  <input type="checkbox" id="p10">
+  <label for="p10">
+    <div class="title">10. BPE Tokenizer from Scratch in C</div>
+    <div class="desc">Byte-pair encoding. Train on a text corpus. Encode/decode.<br><strong>Purpose:</strong> Every LLM needs this. Most people never build one.<br><strong>Output:</strong> Repo with tokenizer + tests.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p11">
+  <input type="checkbox" id="p11">
+  <label for="p11">
+    <div class="title">11. GPT-2 Inference in Pure C</div>
+    <div class="desc">Load HuggingFace weights. Full transformer forward pass. Autoregressive generation.<br><strong>Purpose:</strong> The resume piece. "I implemented GPT-2 in C."<br><strong>Output:</strong> Repo that generates text. README with sample output.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p12">
+  <input type="checkbox" id="p12">
+  <label for="p12">
+    <div class="title">12. Llama 2 Inference in C</div>
+    <div class="desc">Same as above, but with RoPE, RMSNorm, SwiGLU, GQA.<br><strong>Purpose:</strong> Modern architecture. Proves you're current.<br><strong>Output:</strong> Repo that runs a 7B model (slowly is fine).</div>
+  </label>
+</div>
+
+<div class="task" data-id="p13">
+  <input type="checkbox" id="p13">
+  <label for="p13">
+    <div class="title">13. KV Cache + Optimizations</div>
+    <div class="desc">Add KV cache to your inference. Aligned memory. SIMD (AVX/NEON). Benchmark before/after.<br><strong>Purpose:</strong> This is what makes inference usable.<br><strong>Output:</strong> Repo with throughput numbers.</div>
+  </label>
+</div>
+
+<h2>Phase 4: CUDA &amp; GPU (Weeks 27–40)</h2>
+
+<div class="task" data-id="p14">
+  <input type="checkbox" id="p14">
+  <label for="p14">
+    <div class="title">14. CUDA Vector Add</div>
+    <div class="desc">Hello world. Thread indexing, bounds checking.<br><strong>Purpose:</strong> Learn the CUDA model.<br><strong>Output:</strong> Repo with correctness test.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p15">
+  <input type="checkbox" id="p15">
+  <label for="p15">
+    <div class="title">15. CUDA Matrix Transpose</div>
+    <div class="desc">Naive vs. shared-memory tiled. Benchmark.<br><strong>Purpose:</strong> Learn coalesced access and shared memory.<br><strong>Output:</strong> Repo with speedup numbers.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p16">
+  <input type="checkbox" id="p16">
+  <label for="p16">
+    <div class="title">16. Tiled Matrix Multiplication</div>
+    <div class="desc">Naive → shared memory tiled → register tiled. Compare to cuBLAS.<br><strong>Purpose:</strong> The kernel that matters for neural nets.<br><strong>Output:</strong> Repo with profiling report (nsys/ncu).</div>
+  </label>
+</div>
+
+<div class="task" data-id="p17">
+  <input type="checkbox" id="p17">
+  <label for="p17">
+    <div class="title">17. Parallel Reduction</div>
+    <div class="desc">Vector sum with shared memory. Tree reduction.<br><strong>Purpose:</strong> Foundation for softmax, layernorm, loss.<br><strong>Output:</strong> Repo with benchmark.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p18">
+  <input type="checkbox" id="p18">
+  <label for="p18">
+    <div class="title">18. Numerically Stable Softmax Kernel</div>
+    <div class="desc">Max reduction → exp → sum → divide.<br><strong>Purpose:</strong> Learn why numerical stability matters in practice.<br><strong>Output:</strong> Repo with NaN test case.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p19">
+  <input type="checkbox" id="p19">
+  <label for="p19">
+    <div class="title">19. CUDA Backend for Your Tensor Library</div>
+    <div class="desc">Port matmul, add, activation to CUDA. Benchmark against CPU.<br><strong>Purpose:</strong> Connect your ML work to GPU work.<br><strong>Output:</strong> Repo with CPU vs. GPU comparison.</div>
+  </label>
+</div>
+
+<h2>Phase 5: Inference Systems (Weeks 41–52)</h2>
+
+<div class="task" data-id="p20">
+  <input type="checkbox" id="p20">
+  <label for="p20">
+    <div class="title">20. Minimal Inference Engine in C</div>
+    <div class="desc">Model loading, graph execution, memory planning, operator fusion.<br><strong>Purpose:</strong> Understand what ONNX Runtime and TensorRT actually do.<br><strong>Output:</strong> Repo that runs a small model end-to-end.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p21">
+  <input type="checkbox" id="p21">
+  <label for="p21">
+    <div class="title">21. Serving Stack</div>
+    <div class="desc">HTTP server + tokenizer + generation loop + batching. Add continuous batching and paged attention (simplified).<br><strong>Purpose:</strong> This is what companies deploy.<br><strong>Output:</strong> Repo with throughput/latency benchmarks.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p22">
+  <input type="checkbox" id="p22">
+  <label for="p22">
+    <div class="title">22. Quantization</div>
+    <div class="desc">int8 and int4 quantization for inference. Calibration.<br><strong>Purpose:</strong> Makes models fit on consumer hardware.<br><strong>Output:</strong> Repo with accuracy vs. speed tradeoff.</div>
+  </label>
+</div>
+
+<h2>Phase 6: Reinforcement Learning (Weeks 53–60)</h2>
+
+<div class="task" data-id="p23">
+  <input type="checkbox" id="p23">
+  <label for="p23">
+    <div class="title">23. Q-Learning from Scratch in C</div>
+    <div class="desc">Tabular Q-learning on a grid world. Then on your game.<br><strong>Purpose:</strong> Understand value-based RL.<br><strong>Output:</strong> Repo with learning curve.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p24">
+  <input type="checkbox" id="p24">
+  <label for="p24">
+    <div class="title">24. Policy Gradients (REINFORCE)</div>
+    <div class="desc">Implement, train on your game.<br><strong>Purpose:</strong> Understand policy-based RL.<br><strong>Output:</strong> Repo with training video.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p25">
+  <input type="checkbox" id="p25">
+  <label for="p25">
+    <div class="title">25. PPO from Scratch</div>
+    <div class="desc">Actor-critic, clipping, GAE. Train on your game.<br><strong>Purpose:</strong> The algorithm behind RLHF. Very valuable.<br><strong>Output:</strong> Repo with trained agent.</div>
+  </label>
+</div>
+
+<h2>Phase 7: Visibility &amp; Contribution (Ongoing)</h2>
+
+<div class="task" data-id="p26">
+  <input type="checkbox" id="p26">
+  <label for="p26">
+    <div class="title">26. Write about every project</div>
+    <div class="desc">Blog post or video per project. What broke, what you learned, how you fixed it.<br><strong>Purpose:</strong> Portfolio legibility.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p27">
+  <input type="checkbox" id="p27">
+  <label for="p27">
+    <div class="title">27. Contribute to llama.cpp or vLLM</div>
+    <div class="desc">Start small. Fix a bug. Optimize a kernel. Add a feature.<br><strong>Purpose:</strong> Real-world codebase experience. Resume signal.</div>
+  </label>
+</div>
+
+<div class="task" data-id="p28">
+  <input type="checkbox" id="p28">
+  <label for="p28">
+    <div class="title">28. Rebuild 2–3 projects from scratch, no reference</div>
+    <div class="desc">Pick autograd, GPT-2 inference, and one CUDA kernel.<br><strong>Purpose:</strong> Prove fluency. This is where "no reference" happens.</div>
+  </label>
+</div>
+
+<h2>Time Estimate</h2>
+<div class="time-box">
+  <ul>
+    <li><strong>Phases 1–2:</strong> 3–4 months</li>
+    <li><strong>Phase 3:</strong> 3 months</li>
+    <li><strong>Phase 4:</strong> 3 months</li>
+    <li><strong>Phase 5:</strong> 3 months</li>
+    <li><strong>Phase 6:</strong> 2 months</li>
+    <li><strong>Phase 7:</strong> ongoing</li>
+    <li style="border-top:1px solid #30363d; margin-top:0.5rem; padding-top:0.5rem;"><strong>Total:</strong> ~12–15 months of consistent work to have a portfolio that makes GPU/ML Systems hiring managers stop and look.</li>
+  </ul>
+</div>
+
+<h2>The Rule</h2>
+<div class="rule">
+  <strong>One project at a time. Finish it. Push it. Write about it. Then next.</strong><br><br>
+  No skipping. No "I'll come back to this." No starting three things at once. The order matters because each project uses the previous one. The autograd engine feeds the tensor library. The tensor library feeds the MLP. The MLP feeds the game AI. The attention feeds GPT-2. The CUDA kernels feed the inference engine.<br><br>
+  This is the path. Start at #1. Finish the game today. Then #2 tomorrow.
+</div>
+
+<button class="reset" onclick="resetAll()">Reset all progress</button>
+
+<footer>Progress saved automatically to your browser.</footer>
+
+<script>
+  const STORAGE_KEY = 'ml_roadmap_full_v1';
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  function loadProgress() {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    checkboxes.forEach(cb => {
+      if (saved[cb.id]) {
+        cb.checked = true;
+        cb.closest('.task').classList.add('done');
+      }
+    });
+    updateProgress();
+  }
+
+  function saveProgress() {
+    const state = {};
+    checkboxes.forEach(cb => { state[cb.id] = cb.checked; });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function updateProgress() {
+    const total = checkboxes.length;
+    const done = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `${done} / ${total} complete (${pct}%)`;
+  }
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('.task').classList.toggle('done', cb.checked);
+      saveProgress();
+      updateProgress();
+    });
+  });
+
+  function resetAll() {
+    if (!confirm('Reset all progress? This cannot be undone.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    checkboxes.forEach(cb => {
+      cb.checked = false;
+      cb.closest('.task').classList.remove('done');
+    });
+    updateProgress();
+  }
+
+  loadProgress();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+Phase 1: Foundations (Weeks 1–6)
+1. Finish the game in C
+
+Pong or Snake. No engine. Raw C, raw rendering (SDL or terminal).
+
+Purpose: Complete something. Learn game loop, state, input, collision.
+
+Output: Working game, GitHub repo, README.
+
+2. Scalar Autograd Engine in C
+
+Value struct with data, grad, _backward, prev.
+
+Implement add, mul, pow, tanh, relu, topological sort, backward pass.
+
+Test on fan-out (one value feeding multiple ops).
+
+Purpose: Understand backprop from first principles.
+
+Output: Repo with tests proving gradients are correct.
+
+3. Tensor Library in C
+
+1D and 2D tensor. Storage (flat buffer) + View (shape, stride, offset).
+
+Implement: create, free, reshape, slice, element-wise add/mul, matmul.
+
+Purpose: Own the data structure everything else builds on.
+
+Output: Repo with benchmarks.
+
+4. MLP on Your Own Tensor
+
+Neuron → Layer → MLP. Forward pass, activation, manual backprop.
+
+Train on XOR, then AND/OR.
+
+Purpose: First working neural network you built entirely yourself.
+
+Output: Repo that trains and prints loss.
+
+Phase 2: Core ML (Weeks 7–14)
+5. Connect MLP to Your Game
+
+Simple policy: state → network → action. Train with supervised learning or basic RL.
+
+Get the paddle to track the ball.
+
+Purpose: Close the loop between NN and environment.
+
+Output: Video/GIF of the AI playing.
+
+6. Optimizers from Scratch
+
+SGD, Momentum, RMSProp, Adam. All in C on your tensor library.
+
+Compare convergence on a toy problem.
+
+Purpose: Understand why Adam is default.
+
+Output: Repo with loss curves.
+
+7. CNN from Scratch in C
+
+Naive convolution → im2col → tiled. Pooling, stride, padding.
+
+Train on MNIST. Target >95%.
+
+Purpose: Understand spatial architectures and the cost of convolution.
+
+Output: Repo with accuracy benchmarks.
+
+8. RNN / LSTM from Scratch in C
+
+Vanilla RNN, then LSTM, then GRU.
+
+Train on a sequence task (char prediction, sine wave).
+
+Purpose: Understand sequence modeling and vanishing gradients.
+
+Output: Repo with generation samples.
+
+9. Attention from Scratch
+
+Single-head → multi-head. Query, key, value. Softmax.
+
+Build a tiny transformer encoder.
+
+Purpose: This is the foundation of everything modern.
+
+Output: Repo with attention visualization.
+
+Phase 3: Transformers & LLMs (Weeks 15–26)
+10. BPE Tokenizer from Scratch in C
+
+Byte-pair encoding. Train on a text corpus. Encode/decode.
+
+Purpose: Every LLM needs this. Most people never build one.
+
+Output: Repo with tokenizer + tests.
+
+11. GPT-2 Inference in Pure C
+
+Load HuggingFace weights. Full transformer forward pass. Autoregressive generation.
+
+Purpose: The resume piece. "I implemented GPT-2 in C."
+
+Output: Repo that generates text. README with sample output.
+
+12. Llama 2 Inference in C
+
+Same as above, but with RoPE, RMSNorm, SwiGLU, GQA.
+
+Purpose: Modern architecture. Proves you're current.
+
+Output: Repo that runs a 7B model (slowly is fine).
+
+13. KV Cache + Optimizations
+
+Add KV cache to your inference. Aligned memory. SIMD (AVX/NEON).
+
+Benchmark before/after.
+
+Purpose: This is what makes inference usable.
+
+Output: Repo with throughput numbers.
+
+Phase 4: CUDA & GPU (Weeks 27–40)
+14. CUDA Vector Add
+
+Hello world. Thread indexing, bounds checking.
+
+Purpose: Learn the CUDA model.
+
+Output: Repo with correctness test.
+
+15. CUDA Matrix Transpose
+
+Naive vs. shared-memory tiled. Benchmark.
+
+Purpose: Learn coalesced access and shared memory.
+
+Output: Repo with speedup numbers.
+
+16. Tiled Matrix Multiplication
+
+Naive → shared memory tiled → register tiled. Compare to cuBLAS.
+
+Purpose: The kernel that matters for neural nets.
+
+Output: Repo with profiling report (nsys/ncu).
+
+17. Parallel Reduction
+
+Vector sum with shared memory. Tree reduction.
+
+Purpose: Foundation for softmax, layernorm, loss.
+
+Output: Repo with benchmark.
+
+18. Numerically Stable Softmax Kernel
+
+Max reduction → exp → sum → divide.
+
+Purpose: Learn why numerical stability matters in practice.
+
+Output: Repo with NaN test case.
+
+19. CUDA Backend for Your Tensor Library
+
+Port matmul, add, activation to CUDA. Benchmark against CPU.
+
+Purpose: Connect your ML work to GPU work.
+
+Output: Repo with CPU vs. GPU comparison.
+
+Phase 5: Inference Systems (Weeks 41–52)
+20. Minimal Inference Engine in C
+
+Model loading, graph execution, memory planning, operator fusion.
+
+Purpose: Understand what ONNX Runtime and TensorRT actually do.
+
+Output: Repo that runs a small model end-to-end.
+
+21. Serving Stack
+
+HTTP server + tokenizer + generation loop + batching.
+
+Add continuous batching and paged attention (simplified).
+
+Purpose: This is what companies deploy.
+
+Output: Repo with throughput/latency benchmarks.
+
+22. Quantization
+
+int8 and int4 quantization for inference. Calibration.
+
+Purpose: Makes models fit on consumer hardware.
+
+Output: Repo with accuracy vs. speed tradeoff.
+
+Phase 6: Reinforcement Learning (Weeks 53–60)
+23. Q-Learning from Scratch in C
+
+Tabular Q-learning on a grid world. Then on your game.
+
+Purpose: Understand value-based RL.
+
+Output: Repo with learning curve.
+
+24. Policy Gradients (REINFORCE)
+
+Implement, train on your game.
+
+Purpose: Understand policy-based RL.
+
+Output: Repo with training video.
+
+25. PPO from Scratch
+
+Actor-critic, clipping, GAE. Train on your game.
+
+Purpose: The algorithm behind RLHF. Very valuable.
+
+Output: Repo with trained agent.
+
+Phase 7: Visibility & Contribution (Ongoing)
+26. Write about every project
+
+Blog post or video per project. What broke, what you learned, how you fixed it.
+
+Purpose: Portfolio legibility.
+
+27. Contribute to llama.cpp or vLLM
+
+Start small. Fix a bug. Optimize a kernel. Add a feature.
+
+Purpose: Real-world codebase experience. Resume signal.
+
+28. Rebuild 2–3 projects from scratch, no reference
+
+Pick autograd, GPT-2 inference, and one CUDA kernel.
+
+Purpose: Prove fluency. This is where "no reference" happens.
+
+The Order Visualized
+text
+Game in C
+  → Autograd
+    → Tensor
+      → MLP
+        → MLP on game
+          → Optimizers
+            → CNN
+              → RNN/LSTM
+                → Attention
+                  → BPE tokenizer
+                    → GPT-2 inference
+                      → Llama inference
+                        → KV cache + SIMD
+                          → CUDA vector add
+                            → CUDA transpose
+                              → CUDA matmul
+                                → CUDA reduction
+                                  → CUDA softmax
+                                    → CUDA tensor backend
+                                      → Inference engine
+                                        → Serving stack
+                                          → Quantization
+                                            → Q-learning
+                                              → Policy gradients
+                                                → PPO
+                                                  → Blog/video each
+                                                    → OSS contributions
+                                                      → Rebuild from memory
+Time Estimate
+Phases 1–2: 3–4 months
+
+Phase 3: 3 months
+
+Phase 4: 3 months
+
+Phase 5: 3 months
+
+Phase 6: 2 months
+
+Phase 7: ongoing
+
+Total: ~12–15 months of consistent work to have a portfolio that makes GPU/ML Systems hiring managers stop and look.
+
+The Rule
+One project at a time. Finish it. Push it. Write about it. Then next.
+
+No skipping. No "I'll come back to this." No starting three things at once. The order matters because each project uses the previous one. The autograd engine feeds the tensor library. The tensor library feeds the MLP. The MLP feeds the game AI. The attention feeds GPT-2. The CUDA kernels feed the inference engine.
