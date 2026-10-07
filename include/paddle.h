@@ -13,7 +13,7 @@ struct Paddle {
 };
 
 void clamp_paddles(struct Field *field, struct Paddle *paddle);
-void ai_move_paddle(struct Paddle *paddle2, struct Ball *ball);
+void ai_move_paddle(struct Field *field, struct Paddle *paddle2, struct Ball *ball);
 void user_move_paddle(struct Paddle *paddle1, int *running, int c, int n);
 
 #endif // !PADDLE_H

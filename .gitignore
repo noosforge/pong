@@ -1,2 +1,4 @@
-/build
-.pong
+.build/
+pong
+*.o
+compile_flags.txt

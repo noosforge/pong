@@ -21,16 +21,40 @@ void bounce_off_horizontal_walls(struct Ball *ball, struct Field *field) {
     }
 }
 
+int get_paddle_center(struct Paddle *paddle) {
+    int paddle_center = paddle->y + paddle->height / 2;
+    return paddle_center;
+};
+
 void bounce_off_paddles(struct Ball *ball, struct Paddle *paddle1, struct Paddle *paddle2) {
+
     // bounce on the left paddle
     if (((ball->x) == paddle1->x && (ball->y) >= paddle1->y) && (ball->y < paddle1->y + paddle1->height)) {
+        int p1_offset = ball->y - get_paddle_center(paddle1);
+
         (ball->x) = paddle1->x + 1;
-        ball->vx = abs(ball->vx);
+        (ball->vx) = abs(ball->vx);
+        (ball->vy) = p1_offset;
+        if (ball->vy > 1) {
+            ball->vy = 1;
+        }
+        if (ball->vy < -1) {
+            ball->vy = -1;
+        }
+        if (ball->vy == 0) {
+            ball->vy = ((rand() % 2) ? 1 : -1);
+        }
 
         // bounce on the right paddle
     } else if (((ball->x) == paddle2->x && (ball->y) >= paddle2->y) && (ball->y < paddle2->y + paddle2->height)) {
+        int p2_offset = ball->y - get_paddle_center(paddle2);
+
         (ball->x) = paddle2->x - 1;
-        ball->vx = -abs(ball->vx);
+        (ball->vx) = -abs(ball->vx);
+        (ball->vy) = p2_offset;
+        if (ball->vy == 0) {
+            ball->vy = ((rand() % 2) ? 1 : -1);
+        }
     }
 }
 

@@ -13,7 +13,9 @@ struct Ball {
 };
 
 void move_ball(struct Ball *ball);
+
 void bounce_off_horizontal_walls(struct Ball *ball, struct Field *field);
+int get_paddle_center(struct Paddle *paddle);
 void bounce_off_paddles(struct Ball *ball, struct Paddle *paddle1, struct Paddle *paddle2);
 
 // Reset the game

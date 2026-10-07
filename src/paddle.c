@@ -12,7 +12,12 @@ void clamp_paddles(struct Field *field, struct Paddle *paddle) {
     }
 }
 
-void ai_move_paddle(struct Paddle *paddle2, struct Ball *ball) {
+void ai_move_paddle(struct Field *field, struct Paddle *paddle2, struct Ball *ball) {
+    if (ball->vx <= 0 || ball->x < (field->width) / 2) {
+        // ball moving away from the ai
+        return;
+    }
+
     int paddle_center = paddle2->y + paddle2->height / 2;
 
     if (ball->y < paddle_center) {

@@ -16,8 +16,8 @@ struct termios origin_termios;
 int main(void) {
     struct Field field = {.width = 40, .height = 12};
     struct Ball ball = {.x = 0, .y = 2, .vx = 1, .vy = 1};
-    struct Paddle paddle1 = {.x = 1, .y = 4, .height = 4};
-    struct Paddle paddle2 = {.x = field.width - 2, .y = 4, .height = 4};
+    struct Paddle paddle1 = {.x = 1, .y = 5, .height = 5};
+    struct Paddle paddle2 = {.x = field.width - 2, .y = 5, .height = 5};
 
     int score1 = 0;
     int score2 = 0;
@@ -39,9 +39,7 @@ int main(void) {
 
         // Move the paddles
         user_move_paddle(&paddle1, &running, c, n);
-        if (ball.vx > 0) {
-            ai_move_paddle(&paddle2, &ball);
-        }
+        ai_move_paddle(&field, &paddle2, &ball);
 
         clamp_paddles(&field, &paddle1);
         clamp_paddles(&field, &paddle2);
