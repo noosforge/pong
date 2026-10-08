@@ -1,9 +1,10 @@
 
 # Pong
 
-![Pong gameplay](screenshot.png)
 
 A terminal-based Pong game written in C.
+
+![Pong gameplay](screenshot.png)
 
 But Pong is only the beginning.
 
@@ -13,7 +14,7 @@ Build something. Hit a wall. Understand why. Build again.
 
 ## Why
 
-I want to understand how things work underneath the abstractions.
+Understanding how things work underneath the abstractions.
 
 How does memory actually work?
 How does state move through a program?
@@ -82,7 +83,7 @@ reset
 
 ## Where this is going
 
-The current heuristic AI will eventually be replaced by a neural network written from scratch in C.
+The current heuristic AI will eventually be replaced by a neural network written from in C.
 
 The goal is not simply to make an AI that plays Pong. It is to understand what is happening underneath:
 
@@ -97,9 +98,3 @@ The goal is not simply to make an AI that plays Pong. It is to understand what i
 The network will eventually live behind the same `ai_move_paddle()` interface that the current AI uses.
 
 And Pong will eventually become just one small piece of a much larger journey into systems, machine learning, and understanding how things work from the bottom up.
-
-## The method
-
-**Build → encounter a problem → understand it → implement it → repeat.**
-
-Pong is where it starts.
